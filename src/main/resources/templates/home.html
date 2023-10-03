@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+Home for Test
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <p>Admin</p>
+</div>
+<div th:if="${#authorization.expression('hasRole(''USER'')')}">
+    <p>User</p>
+</div>
+
+<div th:if="${#authorization.expression('isAuthenticated()')}">
+    <p>You are logged in.</p>
+</div>
+<button>
+    <a href="auth/login">Go to Login Page</a>
+</button>
+<button>
+    <a href="auth/logout">logout</a>
+</button>
+</body>
+</html>
