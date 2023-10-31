@@ -1,7 +1,6 @@
 package com.example.demo.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.web.context.WebServerApplicationContext;
@@ -11,11 +10,11 @@ import org.springframework.stereotype.Component;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+@Slf4j
 @Component
 class ApplicationRunnerUtility implements org.springframework.boot.ApplicationRunner {
 
     private final WebServerApplicationContext context;
-    private final Logger logger = LoggerFactory.getLogger(ApplicationRunnerUtility.class);
 
     @Autowired
     public ApplicationRunnerUtility(WebServerApplicationContext context) {
@@ -28,8 +27,8 @@ class ApplicationRunnerUtility implements org.springframework.boot.ApplicationRu
         int port = webServer.getPort();
         String hostName = getHostName();
 
-        logger.info("http://{}:{}", hostName, port);
-        logger.info("http://127.0.0.1:{}", port);
+        log.info("http://{}:{}", hostName, port);
+        log.info("http://127.0.0.1:{}", port);
     }
 
     private String getHostName() {
@@ -37,7 +36,7 @@ class ApplicationRunnerUtility implements org.springframework.boot.ApplicationRu
             InetAddress inetAddress = InetAddress.getLocalHost();
             return inetAddress.getHostAddress();
         } catch (UnknownHostException e) {
-            logger.error("error while getting host name", e);
+            log.error("error while getting host name", e);
             return "localhost";
         }
     }

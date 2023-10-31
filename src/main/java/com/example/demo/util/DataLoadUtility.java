@@ -1,24 +1,20 @@
 package com.example.demo.util;
 
-
-
-
 import com.example.demo.entity.User;
 import com.example.demo.entity.Role;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
-import java.util.logging.Logger;
 
+@Slf4j
 @Component
 public class DataLoadUtility implements CommandLineRunner {
-
-    private final Logger logger = Logger.getLogger(DataLoadUtility.class.getName());
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -36,17 +32,12 @@ public class DataLoadUtility implements CommandLineRunner {
         if(roleRepository.findByAuthority("ROLE_ADMIN").isPresent()){
             return;
         }
-        logger.info("DummyMaker.run");
+        log.info("DummyMaker.run");
         Role adminRole = roleRepository.save(new Role("ROLE_ADMIN"));
         Role userRole = roleRepository.save(new Role("ROLE_USER"));
-        Set<Role> roles = Set.of(adminRole);
-        Set<Role> roles2 = Set.of(userRole);
         Set<Role> roles3 = Set.of(adminRole, userRole);
 
-        userRepository.save(new User("saehaha", passwordEncoder.encode("1234"), roles3));
-
-
-
+        userRepository.save(new User("zombil8731", passwordEncoder.encode("1234"), roles3));
 
     }
 
